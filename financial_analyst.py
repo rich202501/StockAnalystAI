@@ -2,14 +2,15 @@ import os
 import json
 import requests
 import yfinance as yf
+import streamlit as st
 from yahooquery import Ticker
 from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()  # 加载 .env 文件
 
-openai_api_key = os.getenv("OPENAI_API_KEY")
-serper_api_key = os.getenv("SERP_API_KEY")
+openai_api_key = st.secrets["OPENAI_API_KEY"]
+serper_api_key = st.secrets["SERP_API_KEY"]
 client = OpenAI(api_key=openai_api_key)
 
 
