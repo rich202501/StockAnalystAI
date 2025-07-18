@@ -10,7 +10,7 @@ from openai import OpenAI
 serper_api_key = st.secrets["SERPER_API_KEY"]
 openai_api_key = st.secrets["OPENAI_API_KEY"]
 
-client = OpenAI(api_key=openai_api_key)
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 def get_company_news(company_name):
     headers = {
