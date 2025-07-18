@@ -10,33 +10,28 @@ def main():
 
     if analyze_button:
         if company_name:
-            st.write("Analyzing... Please wait.")
+            st.write("Analyzing... Please wait...")
 
-            investment_thesis, hist = financial_analyst(company_name)
+            try:
+                investment_thesis, hist = financial_analyst(company_name)
 
-            # Select 'Open' and 'Close' columns from the hist dataframe
-            hist_selected = hist[['Open', 'Close']]
+                # 选择 Open 和 Close 字段用于图表
+                hist_selected = hist[['Open', 'Close']]
 
-            # Create a new figure in matplotlib
-            fig, ax = plt.subplots()
+                # 绘图
+                fig, ax = plt.subplots()
+                hist_selected.plot(kind='line', ax=ax)
+                ax.set_title(f"{company_name} Stock Price")
+                ax.set_xlabel("Date")
+                ax.set_ylabel("Stock Price")
+                st.pyplot(fig)
 
-            # Plot the selected data
-            hist_selected.plot(kind='line', ax=ax)
-
-            # Set the title and labels
-            ax.set_title(f"{company_name} Stock Price")
-            ax.set_xlabel("Date")
-            ax.set_ylabel("Stock Price")
-
-            # Display the plot in Streamlit
-            st.pyplot(fig)
-
-            st.write("Investment Thesis / Recommendation:")
-
-            st.markdown(investment_thesis, unsafe_allow_html=True)
+                st.subheader("📊 Investment Thesis / Recommendation:")
+                st.markdown(investment_thesis, unsafe_allow_html=True)
+            except Exception as e:
+                st.error(f"Error: {e}")
         else:
-            st.write("Please enter the company name.")
-
+            st.warning("Please enter a company name.")
 
 if __name__ == "__main__":
     main()
