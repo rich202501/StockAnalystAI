@@ -1,3 +1,4 @@
+# streamlit_app/app.py
 import streamlit as st
 import matplotlib.pyplot as plt
 from financial_analyst import financial_analyst
@@ -10,28 +11,22 @@ def main():
 
     if analyze_button:
         if company_name:
-            st.write("Analyzing... Please wait...")
+            st.write("Analyzing... Please wait.")
 
-            try:
-                investment_thesis, hist = financial_analyst(company_name)
+            investment_thesis, hist = financial_analyst(company_name)
 
-                # 选择 Open 和 Close 字段用于图表
-                hist_selected = hist[['Open', 'Close']]
+            hist_selected = hist[['Open', 'Close']]
+            fig, ax = plt.subplots()
+            hist_selected.plot(kind='line', ax=ax)
+            ax.set_title(f"{company_name.upper()} Stock Price")
+            ax.set_xlabel("Date")
+            ax.set_ylabel("Stock Price")
+            st.pyplot(fig)
 
-                # 绘图
-                fig, ax = plt.subplots()
-                hist_selected.plot(kind='line', ax=ax)
-                ax.set_title(f"{company_name} Stock Price")
-                ax.set_xlabel("Date")
-                ax.set_ylabel("Stock Price")
-                st.pyplot(fig)
-
-                st.subheader("📊 Investment Thesis / Recommendation:")
-                st.markdown(investment_thesis, unsafe_allow_html=True)
-            except Exception as e:
-                st.error(f"Error: {e}")
+            st.write("Investment Thesis / Recommendation:")
+            st.markdown(investment_thesis, unsafe_allow_html=True)
         else:
-            st.warning("Please enter a company name.")
+            st.warning("Please enter the company name.")
 
 if __name__ == "__main__":
     main()
