@@ -12,8 +12,8 @@ def main():
     if analyze_button:
         if company_name:
             st.write("Analyzing... Please wait.")
-
-            investment_thesis, hist = financial_analyst(company_name)
+            
+            investment_thesis, hist = financial_analyst(f"Give investment analysis for company {company_name}")
 
             hist_selected = hist[['Open', 'Close']]
             fig, ax = plt.subplots()
