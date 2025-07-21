@@ -7,7 +7,7 @@ def main():
     st.set_page_config(page_title="📈 AI Financial Analyst", layout="wide")
     st.title("💼 AI Financial Analyst")
 
-    company_name = st.text_input("Enter Stock Code (e.g. AAPL, TSLA):")
+    company_name = st.text_input("Enter Company Name (e.g. Apple, Tesla):")
     analyze_button = st.button("🔍 Analyze")
 
     if analyze_button:
